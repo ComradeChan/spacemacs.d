@@ -28,11 +28,12 @@ This function should only modify configuration layer settings."
 
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '("~/.spacemacs.d/")
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(markdown
+   '(html
+     markdown
      javascript
      clojure
      ;; ----------------------------------------------------------------
@@ -55,8 +56,17 @@ This function should only modify configuration layer settings."
      ;; spell-checking
      syntax-checking
      ;; version-control
-     treemacs)
-
+     treemacs
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     ;; (exwm :variables exwm-enable-systray nil  ;;
+     ;;       exwm-autostart-xdg-applications nil ;;
+     ;;       exwm-terminal-command "xterm"       ;;
+     ;;       exwm-locking-command nil            ;;
+     ;;       exwm-hide-tiling-modeline nil       ;;
+     ;;       exwm-workspace-switch-wrap t        ;;
+     ;;       exwm-randr-command nil))            ;;
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+)
 
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
@@ -70,7 +80,6 @@ This function should only modify configuration layer settings."
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
-
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '()
 
@@ -549,38 +558,18 @@ This function is called only while dumping Spacemacs configuration. You can
 dump."
 )
 
-
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-(define-key evil-normal-state-map
-	    (kbd "a") 'evil-backward-char
-	    )
-(define-key evil-normal-state-map
-	    (kbd "e") 'evil-next-line
-	    )
-(define-key evil-normal-state-map
-	    (kbd "o") 'evil-previous-line
-	    )
-(define-key evil-normal-state-map
-	    (kbd "h") 'evil-forward-char
-	    )
-(define-key evil-visual-state-map
-	    (kbd "a") 'evil-backward-char
-	    )
-(define-key evil-visual-state-map
-	    (kbd "e") 'evil-next-line
-	    )
-(define-key evil-visual-state-map
-	    (kbd "o") 'evil-previous-line
-	    )
-(define-key evil-visual-state-map
-	    (kbd "h") 'evil-forward-char
-	    )
-)
+  ;; Loads userconfig.el
+  ;; just to keep this file clean
+  (let ((uc (concat dotspacemacs-directory "userconfig.el")))
+    (message (concat "ds-d" dotspacemacs-directory))
+    (load-file uc))
+  )
 
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -598,7 +587,7 @@ This function is called at the very end of Spacemacs initialization."
  '(auth-source-save-behavior nil)
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(vmd-mode valign mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji web-beautify tern prettier-js npm-mode nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd helm-gtags ggtags dap-mode lsp-treemacs bui lsp-mode markdown-mode counsel-gtags counsel swiper ivy add-node-modules-path yasnippet-snippets helm-company helm-c-yasnippet fuzzy company clojure-snippets auto-yasnippet yasnippet ac-ispell auto-complete subed flycheck-pos-tip pos-tip ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-terminal-cursor-changer evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
+   '(evil-org gnuplot helm-org-rifle org-cliplink org-contrib org-download org-mime gntp org-present org-category-capture org-rich-yank desktop-environment evil-exwm-state helm-exwm exwm xelb web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data vmd-mode valign mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji web-beautify tern prettier-js npm-mode nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl impatient-mode htmlize simple-httpd helm-gtags ggtags dap-mode lsp-treemacs bui lsp-mode markdown-mode counsel-gtags counsel swiper ivy add-node-modules-path yasnippet-snippets helm-company helm-c-yasnippet fuzzy company clojure-snippets auto-yasnippet yasnippet ac-ispell auto-complete subed flycheck-pos-tip pos-tip ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-terminal-cursor-changer evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
